@@ -4,7 +4,8 @@
   "description": "Variety is the spice of life! We rotate through an amazing selection of roll ice cream and serve 9 different flavors every day.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "start:dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "juned",
