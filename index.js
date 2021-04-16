@@ -8,7 +8,8 @@ require('dotenv').config()
 const port = process.env.PORT || 5000
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
+// app.use(bodyParser.json());
 
 
 // console.log(process.env.DB_USER)
@@ -23,13 +24,20 @@ client.connect(err => {
 
   const ProductCollection = client.db("theDynamic").collection("addProduct");
 
-app.get('/allProduct', (req, res) => {
-  ProductCollection.find()
-  .toArray((err, items) => {
-    res.send(items)
-    // console.log('from database', items)
+  app.get('/allProduct', (req, res) => {
+    ProductCollection.find()
+    .toArray((err, items) => {
+      res.send(items)
+      // console.log('from database', items)
+    })
   })
-})
+
+  app.get('/product/:_id', (req, res) => {
+    ProductCollection.find({_id: req.params._id})
+    .toArray( (err, documents) => {
+      res.send(documents[0]);
+    })
+  })
 
   app.post('/addProduct', (req, res) => {
     const newProduct = req.body;
