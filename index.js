@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express');
+const ObjectId = require('mongodb').ObjectID;
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const cors = require('cors');
@@ -32,12 +33,14 @@ client.connect(err => {
     })
   })
 
-  app.get('/product/:_id', (req, res) => {
-    ProductCollection.find({_id: req.params._id})
+  app.get('/product/:id', (req, res) => {
+
+    ProductCollection.find({_id: ObjectId(req.params.id)})
     .toArray( (err, documents) => {
       res.send(documents[0]);
     })
   })
+
 
   app.post('/addProduct', (req, res) => {
     const newProduct = req.body;
